@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experiment-10: Form Validation</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    input, select { margin-bottom: 10px; padding: 5px; width: 200px; }
+    .error { color: red; font-size: 0.9em; }
+  </style>
+  <script>
+    function validateForm() {
+      document.querySelectorAll('.error').forEach(e => e.textContent = "");
+      let isValid = true;
+
+      const fname = document.getElementById("fname").value.trim();
+      if(fname === "" || !/^[A-Za-z]+$/.test(fname)) {
+        document.getElementById("fnameError").textContent = "Please enter a valid first name.";
+        isValid = false;
+      }
+
+      const lname = document.getElementById("lname").value.trim();
+      if(lname === "" || !/^[A-Za-z]+$/.test(lname)) {
+        document.getElementById("lnameError").textContent = "Please enter a valid last name.";
+        isValid = false;
+      }
+
+      const email = document.getElementById("email").value.trim();
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if(email === "" || !emailPattern.test(email)) {
+        document.getElementById("emailError").textContent = "Please enter a valid email.";
+        isValid = false;
+      }
+
+      const password = document.getElementById("password").value.trim();
+      if(password.length < 6) {
+        document.getElementById("passwordError").textContent = "Password must be at least 6 characters.";
+        isValid = false;
+      }
+
+      const gender = document.querySelector('input[name="gender"]:checked');
+      if(!gender) {
+        document.getElementById("genderError").textContent = "Please select a gender.";
+        isValid = false;
+      }
+
+      const mobile = document.getElementById("mobile").value.trim();
+      if(!/^\d{10}$/.test(mobile)) {
+        document.getElementById("mobileError").textContent = "Enter a valid 10-digit mobile number.";
+        isValid = false;
+      }
+
+      // If all fields are valid, redirect to a new page
+      if(isValid) {
+        window.location.href = "experiment-9success.html"; // replace with your page
+      }
+
+      return false; // prevent form submission
+    }
+  </script>
+</head>
+<body>
+  <h2>Sign Up Form</h2>
+  <form onsubmit="return validateForm()">
+    <label>First Name:</label><br>
+    <input type="text" id="fname" placeholder="Enter First Name"><br>
+    <span class="error" id="fnameError"></span><br>
+
+    <label>Last Name:</label><br>
+    <input type="text" id="lname" placeholder="Enter Last Name"><br>
+    <span class="error" id="lnameError"></span><br>
+
+    <label>Email:</label><br>
+    <input type="text" id="email" placeholder="Enter Email"><br>
+    <span class="error" id="emailError"></span><br>
+
+    <label>Password:</label><br>
+    <input type="password" id="password" placeholder="Enter Password"><br>
+    <span class="error" id="passwordError"></span><br>
+
+    <label>Gender:</label><br>
+    <input type="radio" name="gender" value="Male"> Male
+    <input type="radio" name="gender" value="Female"> Female<br>
+    <span class="error" id="genderError"></span><br>
+
+    <label>Mobile Number:</label><br>
+    <input type="text" id="mobile" placeholder="Mobile Number"><br>
+    <span class="error" id="mobileError"></span><br>
+
+    <button type="submit">Sign Up</button>
+  </form>
+</body>
+</html>

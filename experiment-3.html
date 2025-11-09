@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reverse String</title>
+</head>
+<body>
+  <h2>Reverse a String</h2>
+  
+  <!-- Input Form -->
+  <form id="stringForm">
+    <label for="userString">Enter a string:</label>
+    <input type="text" id="userString" required><br>
+    <button type="submit">Reverse</button>
+  </form>
+  
+  <!-- Output Section -->
+  <p id="output"></p>
+
+  <h2>Replace a Character/Word in a String</h2>
+   <!-- Input Form -->
+  <form id="replaceForm">
+    <label for="userText">Enter a string:</label><br>
+    <input type="text" id="userText" required><br><br>
+
+    <label for="oldChar">Character/Word to replace:</label><br>
+    <input type="text" id="oldChar" required><br><br>
+
+    <label for="newChar">Replace with:</label><br>
+    <input type="text" id="newChar" required><br><br>
+
+    <button type="submit">Replace</button>
+  </form>
+
+  <!-- Output Section -->
+  <p id="output"></p>
+  <h2></h2> Check if a String is Palindrome</h2>
+  <!-- Input Form -->
+  <form id="palindromeForm">
+    <label for="userString">Enter a string:</label><br>
+    <input type="text" id="userString" required>
+    <button type="submit">Check</button>
+  </form>
+
+  <!-- Output Section -->
+  <p id="output"></p>
+   <h2>Check if a Number is Palindrome</h2>
+  <!-- Input Form -->
+  <form id="palindromeForm">
+    <label for="userNumber">Enter a number:</label><br>
+    <input type="number" id="userNumber" required>
+    <button type="submit">Check</button>
+  </form>
+
+  <!-- Output Section -->
+  <p id="output"></p>
+
+  <script>
+    function reverseString(str) {
+      let newString = "";
+      for (let i = str.length - 1; i >= 0; i--) {
+        newString += str[i];
+      }
+      return newString;
+    }
+
+    // handle form submission
+    document.getElementById("stringForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // prevent page reload
+
+      const input = document.getElementById("userString").value;
+      const result = reverseString(input);
+
+      // display output
+      document.getElementById("output").innerHTML = 
+        "Original String: " + input + "<br>Reversed String: " + result;
+    });
+  </script>
+  <script>
+    document.getElementById("replaceForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // stop page reload
+
+      // get input values
+      const text = document.getElementById("userText").value;
+      const oldChar = document.getElementById("oldChar").value;
+      const newChar = document.getElementById("newChar").value;
+
+      // replace all occurrences using regex
+      const regex = new RegExp(oldChar, "g");
+      const newText = text.replace(regex, newChar);
+
+      // show result
+      document.getElementById("output").innerHTML =
+        "Original Text: " + text + "<br>Modified Text: " + newText;
+    });
+  </script>
+  <script>
+    // function that checks if str is palindrome
+    function check_palindrome(str) {
+      let j = str.length - 1;
+      for (let i = 0; i < j / 2; i++) {
+        let x = str[i].toLowerCase();   // forward char
+        let y = str[j - i].toLowerCase(); // backward char
+        if (x !== y) {
+          return false; // not palindrome
+        }
+      }
+      return true; // palindrome
+    }
+
+    // handle form submit
+    document.getElementById("palindromeForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // stop reload
+
+      const input = document.getElementById("userString").value;
+      const result = check_palindrome(input);
+
+      if (result) {
+        document.getElementById("output").innerHTML =
+          `"${input}" is a Palindrome ✅`;
+      } else {
+        document.getElementById("output").innerHTML =
+          `"${input}" is NOT a Palindrome ❌`;
+      }
+    });
+  </script>
+
+  <script>
+    // function to reverse a string
+    function reverse(str) {
+      let rev_str = "";
+      for (let i = str.length - 1; i >= 0; i--) {
+        rev_str += str[i];
+      }
+      return rev_str;
+    }
+
+    // function to check palindrome
+    function is_palindrome(num) {
+      const str = num.toString();       // convert number to string
+      const reverse_str = reverse(str); // reverse string
+      return reverse_str === str;       // compare
+    }
+
+    // handle form submit
+    document.getElementById("palindromeForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // stop reload
+
+      const number = document.getElementById("userNumber").value;
+      const result = is_palindrome(number);
+
+      if (result) {
+        document.getElementById("output").innerHTML =
+          number + " is a Palindrome ✅";
+      } else {
+        document.getElementById("output").innerHTML =
+          number + " is NOT a Palindrome ❌";
+      }
+    });
+  </script>
+</body>
+</html>

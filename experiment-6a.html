@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Remove Array Element</title>
+</head>
+<body>
+  <h2> Remove Specific Element from Array</h2>
+
+  <!-- Input Form -->
+  <form id="arrayForm">
+    <label for="arrayInput">Enter array elements (comma separated):</label><br>
+    <input type="text" id="arrayInput" placeholder="e.g., 2,5,9,6" required><br><br>
+
+    <label for="removeNumber">Enter number to remove:</label><br>
+    <input type="number" id="removeNumber" required><br><br>
+
+    <button type="submit">Remove Element</button>
+  </form>
+
+  <!-- Output Section -->
+  <p id="output"></p>
+<h2> Remove Specific Item from Array (For Loop)</h2>
+
+  <!-- Input Form -->
+  <form id="arrayForm">
+    <label for="arrayInput">Enter array elements (comma separated):</label><br>
+    <input type="text" id="arrayInput" placeholder="e.g., 1,2,3,4,5" required><br><br>
+
+    <label for="removeNumber">Enter number to remove:</label><br>
+    <input type="number" id="removeNumber" required><br><br>
+
+    <button type="submit">Remove Item</button>
+  </form>
+
+  <!-- Output Section -->
+  <p id="output"></p>
+  <h2> Check if an Array Contains a Value</h2>
+
+  <!-- Input Form -->
+  <form id="checkForm">
+    <label for="arrayInput">Enter array elements (comma separated):</label><br>
+    <input type="text" id="arrayInput" placeholder="e.g., you,will,learn,javascript" required><br><br>
+
+    <label for="valueInput">Enter value to check:</label><br>
+    <input type="text" id="valueInput" required><br><br>
+
+    <button type="submit">Check</button>
+  </form>
+
+  <p id="output"></p>
+
+  <h2>Empty an Array</h2>
+
+  <!-- Input Form -->
+  <form id="emptyForm">
+    <label for="arrayInput">Enter array elements (comma separated):</label><br>
+    <input type="text" id="arrayInput" placeholder="e.g., 1,2,3,4" required><br><br>
+    <button type="submit">Empty Array</button>
+  </form>
+
+  <p>Original Array: <span id="originalArray"></span></p>
+  <p>Array after emptying: <span id="emptyArrayOutput"></span></p>
+
+   <h2>Empty an Array (Method 2)</h2>
+
+  <form id="emptyForm">
+    <label for="arrayInput">Enter array elements (comma separated):</label><br>
+    <input type="text" id="arrayInput" placeholder="e.g., 1,2,3,4" required><br><br>
+    <button type="submit">Empty Array</button>
+  </form>
+
+  <p>Original Array: <span id="originalArray"></span></p>
+  <p>Array after emptying: <span id="emptyArrayOutput"></span></p>
+
+   <h2> Empty an Array (Method 3)</h2>
+
+  <form id="emptyForm">
+    <label for="arrayInput">Enter array elements (comma separated):</label><br>
+    <input type="text" id="arrayInput" placeholder="e.g., 1,2,3,4" required><br><br>
+    <button type="submit">Empty Array</button>
+  </form>
+
+  <p>Original Array: <span id="originalArray"></span></p>
+  <p>Array after emptying: <span id="emptyArrayOutput"></span></p>
+
+  <script>
+    function remove_array_element(array, n) {
+      const index = array.indexOf(n);
+      if (index > -1) {
+        array.splice(index, 1);
+      }
+      return array;
+    }
+
+    document.getElementById("arrayForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // prevent page reload
+
+      // get input values
+      const arrayStr = document.getElementById("arrayInput").value;
+      const removeNum = parseInt(document.getElementById("removeNumber").value);
+
+      // convert string to array of numbers
+      const array = arrayStr.split(',').map(num => parseInt(num.trim()));
+
+      // remove element
+      const newArray = remove_array_element(array, removeNum);
+
+      // display output
+      document.getElementById("output").innerHTML = 
+        "Updated Array: [" + newArray.join(", ") + "]";
+    });
+  </script>
+
+    <script>
+    function removeItemFromArray(array, n) {
+      const newArray = [];
+      for (let i = 0; i < array.length; i++) {
+        if (array[i] !== n) {
+          newArray.push(array[i]);
+        }
+      }
+      return newArray;
+    }
+
+    document.getElementById("arrayForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // stop page reload
+
+      // get user input
+      const arrayStr = document.getElementById("arrayInput").value;
+      const removeNum = parseInt(document.getElementById("removeNumber").value);
+
+      // convert string to array of numbers
+      const array = arrayStr.split(',').map(num => parseInt(num.trim()));
+
+      // remove item
+      const newArray = removeItemFromArray(array, removeNum);
+
+      // display output
+      document.getElementById("output").innerHTML = 
+        "Updated Array: [" + newArray.join(", ") + "]";
+    });
+  </script>
+  <script>
+    document.getElementById("checkForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // prevent page reload
+
+      // get input values
+      const arrayStr = document.getElementById("arrayInput").value;
+      const checkValue = document.getElementById("valueInput").value;
+
+      // convert string to array
+      const array = arrayStr.split(',').map(item => item.trim());
+
+      // check if array contains value
+      const hasValue = array.includes(checkValue);
+
+      // show result
+      document.getElementById("output").innerHTML = 
+        hasValue ? `Array contains "${checkValue}". ✅` : `Array does not contain "${checkValue}". ❌`;
+    });
+  </script>
+  <script>
+    function emptyArray(arr) {
+      // Method 1: Return a new empty array
+      arr = [];
+      return arr;
+    }
+
+    document.getElementById("emptyForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const arrayStr = document.getElementById("arrayInput").value;
+      let array = arrayStr.split(',').map(num => num.trim());
+
+      // show original array
+      document.getElementById("originalArray").textContent = "[" + array.join(", ") + "]";
+
+      // empty array
+      const result = emptyArray(array);
+      document.getElementById("emptyArrayOutput").textContent = "[" + result.join(", ") + "]";
+    });
+  </script>
+
+  <script>
+    // Method 2: Empty in-place using splice
+    function emptyArray(arr) {
+      arr.splice(0, arr.length);
+      return arr;
+    }
+
+    document.getElementById("emptyForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // get input and convert to array
+      const arrayStr = document.getElementById("arrayInput").value;
+      let array = arrayStr.split(',').map(num => num.trim());
+
+      // show original array
+      document.getElementById("originalArray").textContent = "[" + array.join(", ") + "]";
+
+      // empty array
+      const result = emptyArray(array);
+      document.getElementById("emptyArrayOutput").textContent = "[" + result.join(", ") + "]";
+    });
+  </script>
+
+  <script>
+    // Method 3: Empty in-place by setting length to 0
+    function emptyArray(arr) {
+      arr.length = 0;
+      return arr;
+    }
+
+    document.getElementById("emptyForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // get input and convert to array
+      const arrayStr = document.getElementById("arrayInput").value;
+      let array = arrayStr.split(',').map(num => num.trim());
+
+      // show original array
+      document.getElementById("originalArray").textContent = "[" + array.join(", ") + "]";
+
+      // empty array
+      const result = emptyArray(array);
+      document.getElementById("emptyArrayOutput").textContent = "[" + result.join(", ") + "]";
+    });
+  </script>
+</body>
+</html>

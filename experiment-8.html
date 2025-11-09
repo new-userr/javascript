@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment-9</title>
+
+    <script>
+        // function to change background to red
+        function changeColor1() {
+            document.body.style.backgroundColor = "red";
+        }
+
+        // function to change background to yellow
+        function changeColor2() {
+            document.body.style.backgroundColor = "yellow";
+        }
+    </script>
+    <script>
+    window.onload = function() {
+      const inputField = document.getElementById("myInput");
+
+      // on focus
+      inputField.addEventListener("focus", function() {
+        inputField.style.backgroundColor = "red";
+      });
+
+      // on blur
+      inputField.addEventListener("blur", function() {
+        inputField.style.backgroundColor = "";
+      });
+    }
+  </script>
+</head>
+<body>
+    <h1 id="head1" onmouseover="changeColor1()" onmouseout="changeColor2()">Experiment-9</h1>
+    <h2>JavaScript program to change background color of Webpage on mouse over event</h2>
+    <p>We are using mouseover and mouseout events to change the background color.</p>
+
+    <h1>Experiment-9b</h1>
+  <p>In this program, we change the background color of the input when it gains focus (onfocus event).</p>
+
+  <h2>Student Information Form</h2>
+  <form id="myForm">
+    <label> Student Name: <input type="text" id="myInput" placeholder="Enter your name"> </label>
+  </form>
+</body>
+</html>

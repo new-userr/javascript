@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Countdown Timer</title>
+</head>
+<body>
+  <h2>Experiment 5: Countdown Timer</h2>
+
+  <!-- Input Form -->
+  <form id="timerForm">
+    <label for="hours">Hours:</label>
+    <input type="number" id="hours" min="0" value="0" required><br><br>
+
+    <label for="minutes">Minutes:</label>
+    <input type="number" id="minutes" min="0" max="59" value="0" required><br><br>
+
+    <label for="seconds">Seconds:</label>
+    <input type="number" id="seconds" min="0" max="59" value="0" required><br><br>
+
+    <button type="submit">Start Countdown</button>
+  </form>
+
+  <!-- Output Section -->
+  <p id="timer"></p>
+
+  <script>
+    let countdownInterval;
+
+    document.getElementById("timerForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // prevent page reload
+
+      // clear any existing countdown
+      if (countdownInterval) clearInterval(countdownInterval);
+
+      // get user input
+      const hours = parseInt(document.getElementById("hours").value) || 0;
+      const minutes = parseInt(document.getElementById("minutes").value) || 0;
+      const seconds = parseInt(document.getElementById("seconds").value) || 0;
+
+      // calculate total countdown time in milliseconds
+      const countDownDate = new Date().getTime() + ((hours*3600 + minutes*60 + seconds) * 1000);
+
+      // start countdown
+      countdownInterval = setInterval(function() {
+        const now = new Date().getTime();
+        const timeLeft = countDownDate - now;
+
+        const d = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const h = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((timeLeft / (1000 * 60)) % 60);
+        const s = Math.floor((timeLeft / 1000) % 60);
+
+        // display countdown
+        document.getElementById("timer").innerHTML = 
+          d + "d " + h + "h " + m + "m " + s + "s ";
+
+        // stop countdown when finished
+        if (timeLeft <= 0) {
+          clearInterval(countdownInterval);
+          document.getElementById("timer").innerHTML = "Countdown Finished ⏰";
+        }
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

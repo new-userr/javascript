@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Union of Sets</title>
+</head>
+<body>
+  <h2> Union of Two Sets</h2>
+
+  <!-- Input Form -->
+  <form id="unionForm">
+    <label for="setAInput">Enter elements of Set A (comma separated):</label><br>
+    <input type="text" id="setAInput" placeholder="e.g., apple,mango,orange" required><br><br>
+
+    <label for="setBInput">Enter elements of Set B (comma separated):</label><br>
+    <input type="text" id="setBInput" placeholder="e.g., grapes,apple,banana" required><br><br>
+
+    <button type="submit">Perform Union</button>
+  </form>
+
+  <p id="output"></p>
+   <h2> Intersection of Two Sets</h2>
+
+  <!-- Input Form -->
+  <form id="intersectionForm">
+    <label for="setAInput">Enter elements of Set A (comma separated):</label><br>
+    <input type="text" id="setAInput" placeholder="e.g., apple,mango,orange" required><br><br>
+
+    <label for="setBInput">Enter elements of Set B (comma separated):</label><br>
+    <input type="text" id="setBInput" placeholder="e.g., grapes,apple,banana" required><br><br>
+
+    <button type="submit">Perform Intersection</button>
+  </form>
+
+  <p id="output"></p>
+
+  <h2> Symmetric Difference of Two Sets</h2>
+
+  <!-- Input Form -->
+  <form id="differenceForm">
+    <label for="setAInput">Enter elements of Set A (comma separated):</label><br>
+    <input type="text" id="setAInput" placeholder="e.g., apple,mango,orange" required><br><br>
+
+    <label for="setBInput">Enter elements of Set B (comma separated):</label><br>
+    <input type="text" id="setBInput" placeholder="e.g., grapes,apple,banana" required><br><br>
+
+    <button type="submit">Perform Symmetric Difference</button>
+  </form>
+
+  <p id="output"></p>
+
+
+  <script>
+    function union(a, b) {
+      let unionSet = new Set(a);
+      for (let i of b) {
+        unionSet.add(i);
+      }
+      return unionSet;
+    }
+
+    document.getElementById("unionForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // get user input and convert to arrays
+      const setA = document.getElementById("setAInput").value.split(',').map(item => item.trim());
+      const setB = document.getElementById("setBInput").value.split(',').map(item => item.trim());
+
+      // perform union
+      const resultSet = union(setA, setB);
+
+      // show result
+      document.getElementById("output").textContent = "Union of Set A and Set B: [" + Array.from(resultSet).join(", ") + "]";
+    });
+  </script>
+
+  <script>
+    function intersection(setA, setB) {
+      let intersectionSet = new Set();
+      for (let i of setB) {
+        if (setA.has(i)) {
+          intersectionSet.add(i);
+        }
+      }
+      return intersectionSet;
+    }
+
+    document.getElementById("intersectionForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // get user input and convert to sets
+      const setA = new Set(document.getElementById("setAInput").value.split(',').map(item => item.trim()));
+      const setB = new Set(document.getElementById("setBInput").value.split(',').map(item => item.trim()));
+
+      // perform intersection
+      const resultSet = intersection(setA, setB);
+
+      // show result
+      document.getElementById("output").textContent = "Intersection of Set A and Set B: [" + Array.from(resultSet).join(", ") + "]";
+    });
+  </script>
+
+  <script>
+    function symmetricDifference(setA, setB) {
+      let diffSet = new Set();
+
+      // elements in A but not in B
+      for (let elem of setA) {
+        if (!setB.has(elem)) diffSet.add(elem);
+      }
+
+      // elements in B but not in A
+      for (let elem of setB) {
+        if (!setA.has(elem)) diffSet.add(elem);
+      }
+
+      return diffSet;
+    }
+
+    document.getElementById("differenceForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const setA = new Set(document.getElementById("setAInput").value.split(',').map(item => item.trim()));
+      const setB = new Set(document.getElementById("setBInput").value.split(',').map(item => item.trim()));
+
+      const resultSet = symmetricDifference(setA, setB);
+
+      document.getElementById("output").textContent = "Symmetric Difference (elements in A or B but not both): [" 
+        + Array.from(resultSet).join(", ") + "]";
+    });
+  </script>
+</body>
+</html>

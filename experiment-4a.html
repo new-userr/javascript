@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Experiment 4: Compare Strings</title>
+</head>
+<body>
+  <h2>Experiment 4: Compare Two Strings</h2>
+
+  <!-- Input Form -->
+  <form id="compareForm">
+    <label for="string1">Enter first string:</label><br>
+    <input type="text" id="string1" required><br><br>
+
+    <label for="string2">Enter second string:</label><br>
+    <input type="text" id="string2" required><br><br>
+
+    <button type="submit">Compare</button>
+  </form>
+
+  <!-- Output Section -->
+  <h3>Results:</h3>
+  <p id="output"></p>
+  <h2> Compare Two Strings Using RegEx</h2>
+
+  <!-- Input Form -->
+  <form id="regexForm">
+    <label for="string1">Enter first string:</label><br>
+    <input type="text" id="string1" required><br><br>
+
+    <label for="string2">Enter second string:</label><br>
+    <input type="text" id="string2" required><br><br>
+
+    <button type="submit">Compare</button>
+  </form>
+
+  <!-- Output Section -->
+  <p id="output"></p>
+
+
+  <script>
+    document.getElementById("compareForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // stop page reload
+
+      const str1 = document.getElementById("string1").value;
+      const str2 = document.getElementById("string2").value;
+
+      let results = "";
+
+      // Method 1: Using toUpperCase()
+      results += "Method 1 (toUpperCase): " +
+        (str1.toUpperCase() === str2.toUpperCase() ? "Similar ✅" : "Not Similar ❌") + "<br>";
+
+      // Method 2: Using toLowerCase()
+      results += "Method 2 (toLowerCase): " +
+        (str1.toLowerCase() === str2.toLowerCase() ? "Similar ✅" : "Not Similar ❌") + "<br>";
+
+      // Method 3: Using localeCompare()
+      results += "Method 3 (localeCompare): " +
+        (str1.localeCompare(str2, undefined, { sensitivity: 'accent' }) === 0 ? "Similar ✅" : "Not Similar ❌") + "<br>";
+
+      // Method 4: Using === (strict equality, case-sensitive)
+      results += "Method 4 (=== strict equality): " +
+        (str1 === str2 ? "Similar ✅" : "Not Similar ❌") + "<br>";
+
+      // Method 5: Using includes()
+      results += "Method 5 (includes check): " +
+        (str1.toLowerCase().includes(str2.toLowerCase()) ? "String1 contains String2 ✅" : "String1 does not contain String2 ❌");
+
+      // Show results
+      document.getElementById("output").innerHTML = results;
+    });
+  </script>
+  <script>
+    document.getElementById("regexForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // prevent page reload
+
+      const str1 = document.getElementById("string1").value;
+      const str2 = document.getElementById("string2").value;
+
+      // create regex with anchors for exact match, case-insensitive
+      const pattern = new RegExp("^" + str1 + "$", "i");
+      const result = pattern.test(str2);
+
+      if(result) {
+        document.getElementById("output").innerHTML =
+          "The strings are similar ✅";
+      } else {
+        document.getElementById("output").innerHTML =
+          "The strings are not similar ❌";
+      }
+    });
+  </script>
+</body>
+</html>
