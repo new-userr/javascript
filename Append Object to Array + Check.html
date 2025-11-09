@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Append Object</title></head>
+<body>
+
+<script>
+let students = [{name:"Aman"}, {name:"Riya"}];
+
+let newStudent = {name:"Sohan"};
+students.push(newStudent);
+
+document.write("Student List: " + JSON.stringify(students) + "<br>");
+
+let exists = students.some(s => s.name === "Sohan");
+document.write("Sohan Exists? " + exists);
+</script>
+
+</body>
+</html>

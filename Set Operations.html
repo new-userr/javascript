@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><title>Set Operations</title></head>
+<body>
+    <h1>Set Operations</h1>
+
+<script>
+let A = new Set([1,2,3,4]);
+let B = new Set([3,4,5,6]);
+
+document.write("Union: " + [...new Set([...A, ...B])] + "<br>");
+document.write("Intersection: " + [...A].filter(x => B.has(x)) + "<br>");
+document.write("A - B: " + [...A].filter(x => !B.has(x)) + "<br>");
+document.write("B - A: " + [...B].filter(x => !A.has(x)) + "<br>");
+</script>
+
+</body>
+</html>
